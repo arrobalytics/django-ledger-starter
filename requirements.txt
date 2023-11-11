@@ -1,0 +1,2 @@
+Django~=4.2.7
+django-ledger>=0.5.5.2
