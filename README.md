@@ -4,32 +4,37 @@
 # Instructions
 
 Clone the django starter template & CD into it
+
 ```shell
 git clone https://github.com/arrobalytics/django-ledger-starter.git && cd django-ledger-starter 
 ```
 
-If pipenv is not installed on your system you may install it
-```shell
-pip install pipenv
-```
+If docker and docker-compose are not installed on your system install them, for example on Debian/Ubuntu:
 
 ```shell
-pipenv install && pipenv shell
+sudo apt install docker.io docker-compose
 ```
 
-Run migrations
+Start the services:
+
 ```shell
-python manage.py migrate
+docker-compose up
 ```
 
-Create Django super user and follow the prompts
+Then navigate to:
+
+- http://localhost:8000/ledger for django-ledger (login as `root` with password `root`)
+
+- http://localhost:8090/?pgsql=postgres&username=ledger&db=ledger&ns=public (password: `ledger`) to browse the DB with [Adminer](https://www.adminer.org).
+
+You can open a shell into the django container with:
+
 ```shell
-python manage.py createsuperuser
+docker-compose exec django bash
 ```
 
-Run te server
+or even execute Django admin commands with:
+
 ```shell
-python manage.py runserver
+docker-compose exec django python3 manage.py check
 ```
-
-Navigate to http://127.0.0.1:8000/ledger

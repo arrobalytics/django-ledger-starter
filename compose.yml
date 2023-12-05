@@ -1,0 +1,43 @@
+---
+
+version: '3.7'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: django_ledger_django
+    container_name: django_ledger_django
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    init: true
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_HOST=postgres
+      - DATABASE_NAME=ledger
+      - DATABASE_USER=ledger
+      - DATABASE_PASSWORD=ledger
+    volumes:
+      - .:/app
+  postgres:
+    image: postgres:16.1-bookworm
+    container_name: django_ledger_postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=ledger
+      - POSTGRES_USER=ledger
+      - POSTGRES_PASSWORD=ledger
+  adminer:
+    image: adminer
+    container_name: weboll_local_adminer
+    restart: always
+    ports:
+      - 8090:8080
+    links:
+      - postgres
+    depends_on:
+      - postgres
