@@ -88,7 +88,6 @@ DATABASES = {
         "USER": env("DATABASE_USER"),
         "PASSWORD": env("DATABASE_PASSWORD"),
         "TEST": {"NAME": env("DATABASE_NAME")},
-        "ATOMIC_REQUESTS": True,
     }
 }
 if "DATABASE_HOST" in env:
